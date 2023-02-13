@@ -36,26 +36,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
-var discord_js_1 = require("discord.js");
-var events_1 = require("./events");
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var client;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                client = new discord_js_1.Client({ intents: ["Guilds"] });
-                client.on("ready", function () { return (0, events_1.onReady)(client); });
-                client.on("interactionCreate", function (interaction) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, (0, events_1.onInteraction)(interaction)];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
-                }); }); });
-                return [4 /*yield*/, client.login(process.env.BOT_TOKEN)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
+exports.onInteraction = void 0;
+var commands_1 = require("./../commands");
+function onInteraction(interaction) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _i, CommandList_1, Command;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!interaction.isCommand()) return [3 /*break*/, 4];
+                    _i = 0, CommandList_1 = commands_1.CommandList;
+                    _a.label = 1;
+                case 1:
+                    if (!(_i < CommandList_1.length)) return [3 /*break*/, 4];
+                    Command = CommandList_1[_i];
+                    if (!(interaction.commandName === Command.data.name)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, Command.run(interaction)];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    _i++;
+                    return [3 /*break*/, 1];
+                case 4: return [2 /*return*/];
+            }
+        });
     });
-}); })();
+}
+exports.onInteraction = onInteraction;
+;

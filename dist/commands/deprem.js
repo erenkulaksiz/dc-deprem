@@ -35,27 +35,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
+exports.deprem = void 0;
+var builders_1 = require("@discordjs/builders");
 var discord_js_1 = require("discord.js");
-var events_1 = require("./events");
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var client;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                client = new discord_js_1.Client({ intents: ["Guilds"] });
-                client.on("ready", function () { return (0, events_1.onReady)(client); });
-                client.on("interactionCreate", function (interaction) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, (0, events_1.onInteraction)(interaction)];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
-                }); }); });
-                return [4 /*yield*/, client.login(process.env.BOT_TOKEN)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
-    });
-}); })();
+var node_fetch_1 = __importDefault(require("node-fetch"));
+exports.deprem = {
+    data: new builders_1.SlashCommandBuilder()
+        .setName("deprem")
+        .setDescription("En son yaşanan depremi getirir."),
+    run: function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
+        var data, json, latest, depremEmbed;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, interaction.deferReply()];
+                case 1:
+                    _a.sent();
+                    if (!interaction.isCommand())
+                        return [2 /*return*/];
+                    return [4 /*yield*/, (0, node_fetch_1.default)("https://api.orhanaydogdu.com.tr/deprem/live.php")];
+                case 2:
+                    data = _a.sent();
+                    return [4 /*yield*/, data.json()];
+                case 3:
+                    json = _a.sent();
+                    latest = json.result[0];
+                    depremEmbed = new discord_js_1.EmbedBuilder()
+                        .setTitle("Deprem Bilgileri")
+                        .setColor(0x0099FF)
+                        .setTimestamp()
+                        .addFields({ name: "Lokasyon", value: latest.lokasyon.toString() }, { name: "Şiddet", value: latest.mag.toString() }, { name: "Tarih", value: latest.date.toString() }, { name: "Enlem", value: latest.coordinates[0].toString(), inline: true }, { name: "Boylam", value: latest.coordinates[1].toString(), inline: true }, { name: "Derinlik", value: latest.depth.toString(), inline: true })
+                        .setFooter({ text: "Deprem Botu" });
+                    return [4 /*yield*/, (interaction === null || interaction === void 0 ? void 0 : interaction.editReply({ embeds: [depremEmbed] }))];
+                case 4:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); }
+};

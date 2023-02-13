@@ -36,26 +36,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
-var discord_js_1 = require("discord.js");
-var events_1 = require("./events");
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var client;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                client = new discord_js_1.Client({ intents: ["Guilds"] });
-                client.on("ready", function () { return (0, events_1.onReady)(client); });
-                client.on("interactionCreate", function (interaction) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, (0, events_1.onInteraction)(interaction)];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
-                }); }); });
-                return [4 /*yield*/, client.login(process.env.BOT_TOKEN)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
-    });
-}); })();
+exports.yapan = void 0;
+var builders_1 = require("@discordjs/builders");
+exports.yapan = {
+    data: new builders_1.SlashCommandBuilder()
+        .setName("yapan")
+        .setDescription("yapan yakışıklı kişi"),
+    run: function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, interaction.reply("https://cdn.discordapp.com/attachments/1074682305538437202/1074741895399481465/Adsz.png")];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); }
+};
