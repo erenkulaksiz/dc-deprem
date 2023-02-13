@@ -107,7 +107,7 @@ function start(client) {
                         case 6: return [2 /*return*/];
                     }
                 });
-            }); }, 30000);
+            }); }, 1000 * 60 * 5);
             return [2 /*return*/];
         });
     });

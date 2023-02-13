@@ -48,7 +48,7 @@ async function start(client: Client){
     }else{
       console.log("Deprem yok!");
     }
-  }, 30000);
+  }, 1000*60*5);
 }
 
 export async function onReady(client: Client){
