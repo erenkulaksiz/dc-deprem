@@ -10,9 +10,16 @@ Discord'da son depremleri yüksek ve az şiddetli olarak 2 kategoriye ayırıp a
 
 ## Kurulum
 
-1. `git clone git@github.com:erenkulaksiz/dc-deprem.git
-2. `cd dc-deprem`
-3. `npm install`
-4. `npm run build`
-5. `npm run start`
+- `git clone git@github.com:erenkulaksiz/dc-deprem.git`
+- `cd dc-deprem`
+- `npm install`
+- `npm run build`
+- `npm run start`
 
+## Geliştirme
+
+- `npm run dev`
+
+## Lisans
+
+MIT
