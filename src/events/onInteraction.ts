@@ -10,4 +10,4 @@ export async function onInteraction(interaction: Interaction) {
       }
     }
   }
-};
+}

@@ -1,5 +1,5 @@
-require('dotenv').config();
-import { Client, Interaction }from "discord.js";
+require("dotenv").config();
+import { Client, Interaction } from "discord.js";
 import { onInteraction, onReady } from "./events";
 
 (async () => {
