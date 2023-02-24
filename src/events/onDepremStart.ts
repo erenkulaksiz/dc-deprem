@@ -23,10 +23,16 @@ export async function onDepremStart(client: Client) {
       console.log("Deprem var!", latestDeprem);
       await fs.writeFileSync("latest.json", JSON.stringify(latestDeprem));
 
+      const x = latestDeprem.coordinates[0].toString();
+      const y = latestDeprem.coordinates[1].toString();
+
       const depremEmbed = new EmbedBuilder()
         .setTitle("Deprem Bilgileri")
         .setColor(0x0099ff)
         .setTimestamp()
+        .setImage(
+          `https://maps.googleapis.com/maps/api/staticmap?center=${x},${y}&zoom=12&size=800x400&markers=color:blue%7C${x},${y}&key=${process.env.MAPS_API_KEY}`
+        )
         .addFields(
           { name: "Lokasyon", value: latestDeprem.lokasyon.toString() },
           { name: "Şiddet", value: latestDeprem.mag.toString() },
@@ -43,7 +49,7 @@ export async function onDepremStart(client: Client) {
           },
           {
             name: "Derinlik",
-            value: latestDeprem.depth.toString(),
+            value: latestDeprem.depth.toString() + "km",
             inline: true,
           }
         )
@@ -54,5 +60,5 @@ export async function onDepremStart(client: Client) {
     } else {
       console.log("Deprem yok!");
     }
-  }, 1000 * 60 * 5);
+  }, 1000 * 60);
 }
