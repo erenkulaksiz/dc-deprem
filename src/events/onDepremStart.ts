@@ -2,6 +2,15 @@ import { Client, TextChannel, EmbedBuilder } from "discord.js";
 import { getLatestDeprem } from "../utils";
 import fs from "fs";
 
+function getDepremColor(magnitute: number) {
+  if (magnitute < 2) return "#00ff00";
+  if (magnitute < 3) return "#ffff00";
+  if (magnitute < 4) return "#ff9900";
+  if (magnitute < 5) return "#ff0000";
+  if (magnitute < 6) return "#990099";
+  return "#ff00ff";
+}
+
 export async function onDepremStart(client: Client) {
   console.log("started deprem");
   const lowChannel = client.channels.cache.get(
@@ -28,7 +37,7 @@ export async function onDepremStart(client: Client) {
 
       const depremEmbed = new EmbedBuilder()
         .setTitle("Deprem Bilgileri")
-        .setColor(0x0099ff)
+        .setColor(getDepremColor(latestDeprem.mag))
         .setTimestamp()
         .setImage(
           `https://maps.googleapis.com/maps/api/staticmap?center=${x},${y}&zoom=12&size=800x400&markers=color:blue%7C${x},${y}&key=${process.env.MAPS_API_KEY}`
